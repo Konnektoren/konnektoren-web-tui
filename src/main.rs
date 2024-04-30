@@ -1,8 +1,5 @@
 use konnektoren_tui::prelude::App;
-use ratatui::{
-    prelude::{Stylize, Terminal},
-    widgets::{Paragraph, Widget},
-};
+use ratatui::{prelude::Terminal, widgets::Widget};
 use ratframe::NewCC;
 use ratframe::RataguiBackend;
 
@@ -31,7 +28,7 @@ impl Default for WebTui {
     fn default() -> Self {
         //Creating the Ratatui backend/ Egui widget here
         let backend = RataguiBackend::new(100, 100);
-        let mut terminal = Terminal::new(backend).unwrap();
+        let terminal = Terminal::new(backend).unwrap();
 
         let app = App::new();
         Self { terminal, app }
@@ -43,7 +40,7 @@ impl NewCC for WebTui {
     fn new(cc: &eframe::CreationContext<'_>) -> Self {
         //Creating the Ratatui backend/ Egui widget here
         let backend = RataguiBackend::new(100, 100);
-        let mut terminal = Terminal::new(backend).unwrap();
+        let terminal = Terminal::new(backend).unwrap();
         let app = App::new();
         Self { terminal, app }
     }
@@ -68,6 +65,12 @@ impl eframe::App for WebTui {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.add(self.terminal.backend_mut());
 
+            if ui.input(|i| i.key_released(egui::Key::ArrowLeft)) {
+                self.app.previous_question();
+            }
+            if ui.input(|i| i.key_released(egui::Key::ArrowRight)) {
+                self.app.next_question();
+            }
             if ui.input(|i| i.key_released(egui::Key::Q)) {
                 self.app.exit();
                 panic!("HAVE A NICE WEEK");
