@@ -1,4 +1,5 @@
 use konnektoren_tui::prelude::App;
+use ratatui::layout::{self, Layout};
 use ratatui::{prelude::Terminal, widgets::Widget};
 use ratframe::NewCC;
 use ratframe::RataguiBackend;
@@ -51,9 +52,7 @@ impl NewCC for WebTui {
 }
 
 impl eframe::App for WebTui {
-    /// Called each time the UI needs repainting, which may be many times per second.
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        //call repaint here so that app runs continuously, remove if you dont need that
         ctx.request_repaint();
         self.terminal
             .draw(|frame| {
@@ -64,6 +63,7 @@ impl eframe::App for WebTui {
 
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.add(self.terminal.backend_mut());
+            self.draw_buttons(ui);
 
             if ui.input(|i| i.key_released(egui::Key::ArrowLeft)) {
                 self.app.previous_question();
@@ -109,6 +109,27 @@ impl eframe::App for WebTui {
                 ()
             }
             //KeyCode::Char(c) => app.on_key(c),
+        });
+    }
+}
+
+impl WebTui {
+    fn draw_buttons(&mut self, ui: &mut egui::Ui) {
+        ui.horizontal(|ui| {
+            if ui.button("Previous Question").clicked() {
+                self.app.previous_question();
+            }
+            if ui.button("Next Question").clicked() {
+                self.app.next_question();
+            }
+            ui.label("Select an Option:");
+            ui.horizontal(|ui| {
+                for option_number in 0..10 {
+                    if ui.button(format!("Option {}", option_number)).clicked() {
+                        self.app.solve_option(option_number).unwrap_or_default();
+                    }
+                }
+            });
         });
     }
 }
