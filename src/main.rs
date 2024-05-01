@@ -71,6 +71,36 @@ impl eframe::App for WebTui {
             if ui.input(|i| i.key_released(egui::Key::ArrowRight)) {
                 self.app.next_question();
             }
+            if ui.input(|i| i.key_released(egui::Key::Num0)) {
+                self.app.solve_option(0);
+            }
+            if ui.input(|i| i.key_released(egui::Key::Num1)) {
+                self.app.solve_option(1);
+            }
+            if ui.input(|i| i.key_released(egui::Key::Num2)) {
+                self.app.solve_option(2);
+            }
+            if ui.input(|i| i.key_released(egui::Key::Num3)) {
+                self.app.solve_option(3);
+            }
+            if ui.input(|i| i.key_released(egui::Key::Num4)) {
+                self.app.solve_option(4);
+            }
+            if ui.input(|i| i.key_released(egui::Key::Num5)) {
+                self.app.solve_option(5);
+            }
+            if ui.input(|i| i.key_released(egui::Key::Num6)) {
+                self.app.solve_option(6);
+            }
+            if ui.input(|i| i.key_released(egui::Key::Num7)) {
+                self.app.solve_option(7);
+            }
+            if ui.input(|i| i.key_released(egui::Key::Num8)) {
+                self.app.solve_option(8);
+            }
+            if ui.input(|i| i.key_released(egui::Key::Num9)) {
+                self.app.solve_option(9);
+            }
             if ui.input(|i| i.key_released(egui::Key::Q)) {
                 self.app.exit();
                 panic!("HAVE A NICE WEEK");
