@@ -72,43 +72,38 @@ impl eframe::App for WebTui {
                 self.app.next_question();
             }
             if ui.input(|i| i.key_released(egui::Key::Num0)) {
-                self.app.solve_option(0);
+                self.app.solve_option(0).unwrap();
             }
             if ui.input(|i| i.key_released(egui::Key::Num1)) {
-                self.app.solve_option(1);
+                self.app.solve_option(1).unwrap();
             }
             if ui.input(|i| i.key_released(egui::Key::Num2)) {
-                self.app.solve_option(2);
+                self.app.solve_option(2).unwrap();
             }
             if ui.input(|i| i.key_released(egui::Key::Num3)) {
-                self.app.solve_option(3);
+                self.app.solve_option(3).unwrap();
             }
             if ui.input(|i| i.key_released(egui::Key::Num4)) {
-                self.app.solve_option(4);
+                self.app.solve_option(4).unwrap();
             }
             if ui.input(|i| i.key_released(egui::Key::Num5)) {
-                self.app.solve_option(5);
+                self.app.solve_option(5).unwrap();
             }
             if ui.input(|i| i.key_released(egui::Key::Num6)) {
-                self.app.solve_option(6);
+                self.app.solve_option(6).unwrap();
             }
             if ui.input(|i| i.key_released(egui::Key::Num7)) {
-                self.app.solve_option(7);
+                self.app.solve_option(7).unwrap();
             }
             if ui.input(|i| i.key_released(egui::Key::Num8)) {
-                self.app.solve_option(8);
+                self.app.solve_option(8).unwrap();
             }
             if ui.input(|i| i.key_released(egui::Key::Num9)) {
-                self.app.solve_option(9);
+                self.app.solve_option(9).unwrap();
             }
-            if ui.input(|i| i.key_released(egui::Key::Q)) {
-                self.app.exit();
-                panic!("HAVE A NICE WEEK");
+            if ui.input(|i| i.key_released(egui::Key::Tab)) {
+                self.app.next_challenge();
             }
-            if ui.input(|i| i.key_released(egui::Key::T)) {
-                ()
-            }
-            //KeyCode::Char(c) => app.on_key(c),
         });
     }
 }
