@@ -10,13 +10,13 @@
 
     <head>
         <!-- change this to your project name -->
-        <title>hello world</title>
+        <title>Konnektoren Web TUI</title>
 
         <!-- config for our rust wasm binary. go to https://trunkrs.dev/assets/#rust for more customization -->
         
 <script type="module">
-import init, * as bindings from '/konnektoren-web-tui-d9f5d8f93ec6b032.js';
-const wasm = await init('/konnektoren-web-tui-d9f5d8f93ec6b032_bg.wasm');
+import init, * as bindings from '/konnektoren-web-tui-6800d6ed082a0cb7.js';
+const wasm = await init('/konnektoren-web-tui-6800d6ed082a0cb7_bg.wasm');
 
 
 window.wasmBindings = bindings;
@@ -95,8 +95,8 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
             }
         </style>
     
-<link rel="modulepreload" href="/konnektoren-web-tui-d9f5d8f93ec6b032.js" crossorigin=anonymous integrity="sha384-68JY6wc7SjK29fHkKVbzhaXpaVMq2fJ6nkyVbJ9kBkcr8hgbR26fqEOysneZ6PpI">
-<link rel="preload" href="/konnektoren-web-tui-d9f5d8f93ec6b032_bg.wasm" crossorigin=anonymous integrity="sha384-PMkpXfXmACuIr9yE9Yrw5KfAsCluv+hgrGx1zqi+nO2uabiB5bOVOVYiOGiDt+In" as="fetch" type="application/wasm"></head>
+<link rel="modulepreload" href="/konnektoren-web-tui-6800d6ed082a0cb7.js" crossorigin=anonymous integrity="sha384-RdmlzT86dbtMvGHs1a8An5tCpUUhztJDC3ZbOELZYHhUojH2EGsDzGjeYe+5ZnQI">
+<link rel="preload" href="/konnektoren-web-tui-6800d6ed082a0cb7_bg.wasm" crossorigin=anonymous integrity="sha384-hBksffXBw8taoSiyhbHafSm1p9jWZheefhpcqhSd4KFnZAUmOD3XkBi4+9ZG5OOj" as="fetch" type="application/wasm"></head>
 
     <body>
         <!-- The WASM code will resize the canvas dynamically -->
