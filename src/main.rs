@@ -1,5 +1,4 @@
 use konnektoren_tui::prelude::App;
-use ratatui::layout::{self, Layout};
 use ratatui::{prelude::Terminal, widgets::Widget};
 use ratframe::NewCC;
 use ratframe::RataguiBackend;
@@ -28,7 +27,7 @@ pub struct WebTui {
 impl Default for WebTui {
     fn default() -> Self {
         //Creating the Ratatui backend/ Egui widget here
-        let backend = RataguiBackend::new(100, 100);
+        let backend = RataguiBackend::new(100, 80);
         let terminal = Terminal::new(backend).unwrap();
 
         let app = App::new();
@@ -40,7 +39,7 @@ impl NewCC for WebTui {
     /// Called once before the first frame.
     fn new(cc: &eframe::CreationContext<'_>) -> Self {
         //Creating the Ratatui backend/ Egui widget here
-        let backend = RataguiBackend::new(100, 100);
+        let backend = RataguiBackend::new(100, 80);
         let terminal = Terminal::new(backend).unwrap();
         let app = App::new();
         Self { terminal, app }
@@ -63,7 +62,6 @@ impl eframe::App for WebTui {
 
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.add(self.terminal.backend_mut());
-            self.draw_buttons(ui);
 
             if ui.input(|i| i.key_released(egui::Key::ArrowLeft)) {
                 self.app.previous_question();
@@ -104,27 +102,48 @@ impl eframe::App for WebTui {
             if ui.input(|i| i.key_released(egui::Key::Tab)) {
                 self.app.next_challenge();
             }
+            if ui.input(|i| i.modifiers.shift && i.key_released(egui::Key::Tab)) {
+                self.app.previous_challenge();
+            }
+            if ui.input(|i| i.key_released(egui::Key::M)) {
+                self.app.toggl_map();
+            }
+        });
+
+        egui::TopBottomPanel::bottom("bottom_panel").show(ctx, |ui| {
+            self.draw_buttons(ui);
         });
     }
 }
 
 impl WebTui {
     fn draw_buttons(&mut self, ui: &mut egui::Ui) {
-        ui.horizontal(|ui| {
+        ui.separator();
+        ui.horizontal_wrapped(|ui| {
             if ui.button("Previous Question").clicked() {
                 self.app.previous_question();
             }
             if ui.button("Next Question").clicked() {
                 self.app.next_question();
             }
-            ui.label("Select an Option:");
-            ui.horizontal(|ui| {
-                for option_number in 0..10 {
-                    if ui.button(format!("Option {}", option_number)).clicked() {
-                        self.app.solve_option(option_number).unwrap_or_default();
-                    }
+            if ui.button("Next Challenge").clicked() {
+                self.app.next_challenge();
+            }
+            if ui.button("Previous Challenge").clicked() {
+                self.app.previous_challenge();
+            }
+            if ui.button("Toggle Map").clicked() {
+                self.app.toggl_map();
+            }
+        });
+        ui.separator();
+        ui.label("Select an Option:");
+        ui.horizontal(|ui| {
+            for option_number in 0..10 {
+                if ui.button(format!("{}", option_number)).clicked() {
+                    self.app.solve_option(option_number).unwrap_or_default();
                 }
-            });
+            }
         });
     }
 }
